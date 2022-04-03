@@ -53,10 +53,24 @@ La arquitectura principalmente expone:
 
 ### Flujo de procesamiento de datos
 
-A continuación se presenta el flujo del procesamiento de datos en la ejecución del DAG desarrollado:
+A continuación se presenta el flujo del procesamiento de datos basado en la ejecución del [DAG desarrollado](https://github.com/flanfranco/itba-fl-tp-ml-engineering/blob/main/aws-deploy/mwaa/dags/aws_etl_dag.py):
 
 ![Image of the data architecture](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/docs/img/02_flow.png) 
 
+![Image of the data architecture](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/docs/img/03_airflow_aws_etl_dag.png) 
+
+A continuación se detalla la estructura de buckets desplegada:
+
+![Image of the data architecture](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/docs/img/07_s3_buckets.png) 
+
+* itbafl-airflow-useast1-232483837258-prd: bucket correspondiente al despliegue del ambiente de MWAA. El mismo almacena los dags, plugins y requirements con configuraciones.
+* itbafl-raw-useast1-232483837258-prd: bucket del datalake correspondiente a almacenar los datos en su formato original (csv, json, etc.) para luego ser procesados.
+* itbafl-stage-useast1-232483837258-prd: bucket del datalake correspondiente a almacenar en formato parquet (y con particionado) los datos originales transformados y procesados con lógica de negocio (aplicando filtros, joins, etc.).
+* itbafl-analytics-useast1-232483837258-prd: bucket del datalake correspondiente a almacenar en formato parquet (y con particionado) datos agregados y depurados para que sean consumidos por usuarios de análisis o para su posterior carga en el DW.
+* itbafl-reports-useast1-232483837258-prd: bucket correspondiente al almacenamiento de reportes generados como resultado de la ejecución de los dags de procesamiento de datos.
+* itbafl-scripts-useast1-232483837258-prd: bucket donde se almacenan los scripts correspondientes a los servicios de procesamientos de datos utilizados en la arquitectura desplegada. En este caso los scripts de pyspark (AWS Glue).
+* itbafl-logs-useast1-232483837258-prd: bucket donde se depositan los logs resultantes de los servicios de procesamientos de datos utilizados en la arquitectura desplegada.
+* itbafl-temp-useast1-232483837258-prd: bucket donde se depositan temporalmente los resultados de la utilización de los servicios de la arquitectura desplegada, como por ejemplo las queries resultantes de Athena, o los parquets temporales resultantes de utilizar [AWS Data Wrangler](https://github.com/awslabs/aws-data-wrangler).
 
 
 👨🏽‍💻 Flavio Lanfranco

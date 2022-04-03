@@ -55,13 +55,13 @@ La arquitectura principalmente expone:
 
 A continuación se presenta el flujo del procesamiento de datos basado en la ejecución del [DAG desarrollado](https://github.com/flanfranco/itba-fl-tp-ml-engineering/blob/main/aws-deploy/mwaa/dags/aws_etl_dag.py):
 
-![Image of the data architecture](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/docs/img/02_flow.png) 
+![Image of the data flow](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/docs/img/02_flow.png) 
 
-![Image of the data architecture](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/docs/img/03_airflow_aws_etl_dag.png) 
+![Image of the airflow dag](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/docs/img/03_airflow_aws_etl_dag.png) 
 
 A continuación se detalla la estructura de buckets desplegada:
 
-![Image of the data architecture](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/docs/img/07_s3_buckets.png) 
+![Image of buckets](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/docs/img/07_s3_buckets.png) 
 
 * itbafl-**airflow**-useast1-232483837258-prd: bucket correspondiente al despliegue del ambiente de MWAA. El mismo almacena los dags, plugins y requirements con configuraciones.
 * itbafl-**raw**-useast1-232483837258-prd: bucket del datalake correspondiente a almacenar los datos en su formato original (csv, json, etc.) para luego ser procesados.
@@ -71,6 +71,22 @@ A continuación se detalla la estructura de buckets desplegada:
 * itbafl-**scripts**-useast1-232483837258-prd: bucket donde se almacenan los scripts correspondientes a los servicios de procesamientos de datos utilizados en la arquitectura desplegada. En este caso los scripts de pyspark (AWS Glue).
 * itbafl-**logs**-useast1-232483837258-prd: bucket donde se depositan los logs resultantes de los servicios de procesamientos de datos utilizados en la arquitectura desplegada.
 * itbafl-**temp**-useast1-232483837258-prd: bucket donde se depositan temporalmente los resultados de la utilización de los servicios de la arquitectura desplegada, como por ejemplo las queries resultantes de Athena, o los parquets temporales resultantes de utilizar [AWS Data Wrangler](https://github.com/awslabs/aws-data-wrangler).
+
+### Reportes de ejemplo
+
+A continuación se muestran algunas capturas correspondientes a los reportes generados por el dag. En algunos casos pueden denotarse rápidamente faltante de datos (raw) (julio 2011 y octubre 2009 por ej.):
+
+![Image of 2009 report](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/aws-deploy/reports_example/2009_CSG_anual_report.png) 
+
+![Image of 2009 report](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/aws-deploy/reports_example/2011_LAX_anual_report.png) 
+
+![Image of 2009 report](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/aws-deploy/reports_example/2014_DAL_anual_report.png) 
+
+
+### Capturas del Dasboard Quicksight
+
+
+### Detalle del despliegue
 
 
 👨🏽‍💻 Flavio Lanfranco

@@ -85,10 +85,15 @@ A continuación se muestran algunas capturas correspondientes a los reportes gen
 ![Image of 20184 report](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/aws-deploy/reports_example/2018_ABE_anual_report.png) 
 
 
-### Capturas del Dasboard Quicksight
+### Capturas del Dashboard Quicksight
 
 
 ### Detalle del despliegue
+
+Redshift
+
+Quicksight
+Se creó un Security Group siguiendo las [indicaciones](https://docs.aws.amazon.com/quicksight/latest/user/enabling-access-redshift.html) y luego se lo asoció al Cluster de Redshift.
 
 
 👨🏽‍💻 Flavio Lanfranco

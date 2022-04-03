@@ -43,7 +43,7 @@ Notas: Es necesario tener en cuenta la variable costo ya que en un despligue pro
 
 ### Arquitectura
 
-![Image of the data architecture](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/docs/img/01_architecture.png) 
+![Image of the data architecture](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/docs/img/01_aws_architecture.png) 
 
 La arquitectura principalmente expone:
 * el despliegue del ambiente de MWAA [creando una VPC y sus componentes](https://docs.aws.amazon.com/mwaa/latest/userguide/vpc-create.html#vpc-create-template-private-or-public) a través de un [stack de CloudFormation](https://docs.aws.amazon.com/mwaa/latest/userguide/samples/cfn-vpc-public-private.zip) proporcionado por AWS.
@@ -52,6 +52,8 @@ La arquitectura principalmente expone:
 * el despligue de un Gateway Endpoint para comunicar Redsfhit con S3 de manera privada.
 
 ### Flujo de procesamiento de datos
+
+A continuación se presenta el flujo del procesamiento de datos en la ejecución del DAG desarrollado:
 
 ![Image of the data architecture](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/docs/img/02_flow.png) 
 

@@ -1,0 +1,16 @@
+apache-airflow[package-extra]==2.0.2
+apache-airflow-providers-postgres==1.0.1
+apache-airflow-providers-cncf-kubernetes==1.1.0
+psycopg2-binary==2.8.6
+fsspec==2021.4.0
+s3fs
+numpy==1.19.1
+pandas==1.2.4
+plotly_express==0.4.0
+kaleido==0.2.1
+sklearn==0.0
+sagemaker==v1.72
+dag-factory==0.7.2
+cython==0.29.21
+pyarrow==2.0.0
+awswrangler==2.4.0

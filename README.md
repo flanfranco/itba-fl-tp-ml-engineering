@@ -78,9 +78,11 @@ A continuación se muestran algunas capturas correspondientes a los reportes gen
 
 ![Image of 2009 report](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/aws-deploy/reports_example/2009_CSG_anual_report.png) 
 
-![Image of 2009 report](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/aws-deploy/reports_example/2011_LAX_anual_report.png) 
+![Image of 2011 report](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/aws-deploy/reports_example/2011_LAX_anual_report.png) 
 
-![Image of 2009 report](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/aws-deploy/reports_example/2014_DAL_anual_report.png) 
+![Image of 2014 report](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/aws-deploy/reports_example/2014_DAL_anual_report.png) 
+
+![Image of 20184 report](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/aws-deploy/reports_example/2018_ABE_anual_report.png) 
 
 
 ### Capturas del Dasboard Quicksight

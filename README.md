@@ -130,10 +130,15 @@ Antes es importante remarcar que la etapa de desarrollo de la solución se reali
 A continuación se detallan los pasos necesarios para replicar la solución implementada:
 
 1) Creación de la estructura de buckets en S3 según lo comentado anteriormente en esta guía.
-En el bucket itbafl-airflow-useast1-232483837258-prd se desplegaron los [archivos compartidos](https://github.com/flanfranco/itba-fl-tp-ml-engineering/tree/main/aws-deploy/mwaa)
+
+En el bucket itbafl-airflow-useast1-232483837258-prd se desplegaron los [archivos compartidos](https://github.com/flanfranco/itba-fl-tp-ml-engineering/tree/main/aws-deploy/mwaa).
+
 En el bucket itbafl-raw-useast1-232483837258-prd se organizaron los archivos fuente csv con el esquema de folders year=yyyy. Esto es para que luego se pueda ejecutar en la tarea raw --> stage el push_down_predicate sobre la partición year.
+
 2) Despliegue del ambiente de MWAA [creando una VPC y sus componentes](https://docs.aws.amazon.com/mwaa/latest/userguide/vpc-create.html#vpc-create-template-private-or-public) a través de un [stack de CloudFormation](https://docs.aws.amazon.com/mwaa/latest/userguide/samples/cfn-vpc-public-private.zip) proporcionado por AWS.
+
 Nota: el "web server access" se configuró como Public network pero en caso de un despliegue formal debería optarse por private.
+
 3) IAM Roles:
 - Se modificó el role "AmazonMWAA-itbafl-airflow-environment-xxxxxx" agregándole los siguientes permisos: AmazonS3FullAccess, AWSGlueConsoleFullAccess, AmazonSageMakerFullAccess (para probar scripts spark con glue notebook de sagemaker).
 - Se creó el role "AWSGlueServiceRoleDefault" agregándole los siguientes permisos: AmazonS3FullAccess, AWSGlueServiceRole.
@@ -141,6 +146,13 @@ Nota: el "web server access" se configuró como Public network pero en caso de u
 4) Glue:
 - En la sección Databases se crearon: raw, stage y analytics.
 - Se crearon 3 crawlers ejecutando los estos [scripts](https://github.com/flanfranco/itba-fl-tp-ml-engineering/tree/main/aws-deploy/scripts/glue/crawlers) en CloudShell. 
+- Se crearon 2 jobs de tipo spark (Glue Version 2 - Worker type G.1X - y Maximum capacity 2) donde:
+
+-- raw_to_stage_us_flights_airline_delay_cancellation --> Script location: s3://itbafl-scripts-useast1-232483837258-prd/glue/raw_to_stage_us_flights_airline_delay_cancellation.py
+
+-- stage_to_analytics_agg_flights_delay_by_date_airport --> Script location: s3://itbafl-scripts-useast1-232483837258-prd/glue/stage_to_analytics_agg_flights_delay_by_date_airport.py
+
+Ambos tienen Job parameters --ptn_year.
 
 
 Redshift

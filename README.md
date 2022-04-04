@@ -50,7 +50,7 @@ La arquitectura principalmente expone:
 * el despliegue del ambiente de MWAA [creando una VPC y sus componentes](https://docs.aws.amazon.com/mwaa/latest/userguide/vpc-create.html#vpc-create-template-private-or-public) a través de un [stack de CloudFormation](https://docs.aws.amazon.com/mwaa/latest/userguide/samples/cfn-vpc-public-private.zip) proporcionado por AWS.
 * el despligue de una subnet group en las subnets privadas de la VPC anteriormente creada.
 * el despliegue de un cluster de Redshift en la subnet group anteriormente creada.
-* el despligue de un Gateway Endpoint para comunicar Redsfhit con S3 de manera privada.
+* el despligue de un Gateway Endpoint para comunicar Redshift con S3 de manera privada.
 
 ### Flujo de procesamiento de datos
 
@@ -95,6 +95,9 @@ En referencia a la tarea [process_anomaly_detection](https://github.com/flanfran
 * La segunda parte es la encargada de aplicar el algoritmo de detección de anomalias (sklearn --> Isolation Forest) y generar un dataframe con el cálculo del modelo para cada aeropuerto.
 * La tercera parte es la encargada de persistir ese dataframe en el DW utilizando nuevamente la librería awswrangler pero ahora con el método wr.redshift.copy que lo que hace es generar en el bucket temporal un archivo parquet y persistirlo con el comando COPY en el DW. Esta inserción el DW se trabaja con el modo "upsert" para no generar duplicados ante un reprocesamiento.
 * La última parte es la encargada de generar los reportes por aeropuerto y almacenarlos en el bucket de reportes.
+
+Nota: Sería conveniente utilizar Airflow solamente como orquestador y no como procesamiento. En base a esto en una próxima iteración sería recomendable llevar el procesamiento del Modelo de ML a SageMaker o ECS/EKS, y abrir las otras partes en otras tareas.
+
 
 ### Reportes de ejemplo
 

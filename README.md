@@ -82,11 +82,18 @@ A continuación se muestran algunas capturas correspondientes a los reportes gen
 
 ![Image of 2014 report](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/aws-deploy/reports_example/2014_DAL_anual_report.png) 
 
-![Image of 20184 report](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/aws-deploy/reports_example/2018_ABE_anual_report.png) 
+![Image of 2018 report](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/aws-deploy/reports_example/2018_ABE_anual_report.png) 
 
 
-### Capturas del Dashboard Quicksight
+### Dashboard QuickSight
 
+A continuación se muestran capturas del dashboard básico de QuickSight diseñado que busca exponer la utilización conjunta de datos agregados provenientes del DW junto a datos con máximo nivel de detalle provenientes del datalake (stage).
+
+![Image of quicksight](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/docs/img/08_quicksight_dashboard.png) 
+
+En la configuración del dataset de QuickSight puede verse la [query](https://github.com/flanfranco/itba-fl-tp-ml-engineering/blob/main/aws-deploy/scripts/redshift/dw_spectrum_quicksight_query.sql) utilizada para integrar el datalake con el dw de la siguiente manera:
+
+![Image of quicksight datasource](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/docs/img/09_quicksight_datasource.png) 
 
 ### Detalle del despliegue
 

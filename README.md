@@ -73,6 +73,24 @@ A continuación se detalla la estructura de buckets desplegada:
 * itbafl-**logs**-useast1-232483837258-prd: bucket donde se depositan los logs resultantes de los servicios de procesamientos de datos utilizados en la arquitectura desplegada.
 * itbafl-**temp**-useast1-232483837258-prd: bucket donde se depositan temporalmente los resultados de la utilización de los servicios de la arquitectura desplegada, como por ejemplo las queries resultantes de Athena, o los parquets temporales resultantes de utilizar [AWS Data Wrangler](https://github.com/awslabs/aws-data-wrangler).
 
+En referencia a los **scripts de pyspark** responsables de transformar los datos a través de la ejecución de tareas de Glue es importante remarcar:
+
+* Script [raw --> stage](https://github.com/flanfranco/itba-fl-tp-ml-engineering/blob/main/aws-deploy/scripts/glue/raw_to_stage_us_flights_airline_delay_cancellation.py):
+- recibe como parámetro el año de procesamiento (ptn_year).
+- en base al mismo realiza un push_down_predicate filtrando solo lo relacionado a ese año en la data fuente (raw).
+- tiene configurado "spark.conf.set("spark.sql.sources.partitionOverwriteMode","dynamic")" para poder "pisar" particiones preexistentes.  
+- almacena los datos en parquet particionados por ptn_year.
+
+* Script [stage --> analytics](https://github.com/flanfranco/itba-fl-tp-ml-engineering/blob/main/aws-deploy/scripts/glue/stage_to_analytics_agg_flights_delay_by_date_airport.py):
+- recibe como parámetro el año de procesamiento (ptn_year).
+- en base al mismo realiza un push_down_predicate filtrando solo lo relacionado a ese año en la data input (stage).
+- aplica lógica de negocio para filtrar vuelos que no han sido cancelados y que tengan valor en los campos fl_date, origin y dep_delay.
+- aplica una agregación por fl_date y origin.
+- suma 2 campos (año y mes) y renombra columnas.
+- almacena los datos en parquet particionados por flight_year, flight_month, y flight_date.
+
+
+
 ### Reportes de ejemplo
 
 A continuación se muestran algunas capturas correspondientes a los reportes generados por el dag. En algunos casos pueden denotarse rápidamente faltante de datos (raw) (julio 2011 y octubre 2009 por ej.):

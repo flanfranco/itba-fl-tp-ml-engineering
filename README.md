@@ -154,11 +154,18 @@ Nota: el "web server access" se configuró como Public network pero en caso de u
 
 Ambos tienen Job parameters --ptn_year.
 
+5) Redshift:
+-- se creó el cluster subnet group en la vpc desplegada por el ambiente de MWAA sobre las dos subnets privadas.
+-- se desplegó un cluster de redshift "redshift-cluster-dw" (dc2.large, 1 node, Database port 5439, Master user name: admin, IAM role: AWSRedshiftServiceRoleDefault, Network and Security--> VPC MWAA creada)
+-- se desplegó un Gateway Endpoint para comunicar Redshift con S3 de manera privada (Service Name: com.amazonaws.us-east-1.s3 y asociado a la main route table de la VPC MWAA desplegada).
+-- Luego se creó en Glue la conexión a Redshift.
+-- Se crearon schemas y tablas utilizando los [scrips ddl](https://github.com/flanfranco/itba-fl-tp-ml-engineering/tree/main/aws-deploy/scripts/redshift).
 
-Redshift
+6) Security Groups:
+-- Se modificó el SG default de Redshift agregándole como Inbound una self-referencing rule necesaria para trabajar con Glue, se agregó también una rule del tipo HTTPS que apunta al prefix del Gateway Enpoint S3 creado, y por último se agregó una rule del tipo redshift que tiene como source el SG de Airflow creado por el ambiente MWAA desplegado. Tambipen se modificó el Outbound de este SG agregándole una self-referencing rule necesaria para trabajar con Glue.
 
-Quicksight
-Se creó un Security Group siguiendo las [indicaciones](https://docs.aws.amazon.com/quicksight/latest/user/enabling-access-redshift.html) y luego se lo asoció al Cluster de Redshift.
+7) QuickSight:
+Se configuró según lo comentado en la [documentación](https://docs.aws.amazon.com/quicksight/latest/user/enabling-access-redshift.html) de AWS.
 
 
 👨🏽‍💻 Flavio Lanfranco

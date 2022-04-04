@@ -129,8 +129,18 @@ Antes es importante remarcar que la etapa de desarrollo de la solución se reali
 
 A continuación se detallan los pasos necesarios para replicar la solución implementada:
 
-
-
+1) Creación de la estructura de buckets en S3 según lo comentado anteriormente en esta guía.
+En el bucket itbafl-airflow-useast1-232483837258-prd se desplegaron los [archivos compartidos](https://github.com/flanfranco/itba-fl-tp-ml-engineering/tree/main/aws-deploy/mwaa)
+En el bucket itbafl-raw-useast1-232483837258-prd se organizaron los archivos fuente csv con el esquema de folders year=yyyy. Esto es para que luego se pueda ejecutar en la tarea raw --> stage el push_down_predicate sobre la partición year.
+2) Despliegue del ambiente de MWAA [creando una VPC y sus componentes](https://docs.aws.amazon.com/mwaa/latest/userguide/vpc-create.html#vpc-create-template-private-or-public) a través de un [stack de CloudFormation](https://docs.aws.amazon.com/mwaa/latest/userguide/samples/cfn-vpc-public-private.zip) proporcionado por AWS.
+Nota: el "web server access" se configuró como Public network pero en caso de un despliegue formal debería optarse por private.
+3) IAM Roles:
+- Se modificó el role "AmazonMWAA-itbafl-airflow-environment-xxxxxx" agregándole los siguientes permisos: AmazonS3FullAccess, AWSGlueConsoleFullAccess, AmazonSageMakerFullAccess (para probar scripts spark con glue notebook de sagemaker).
+- Se creó el role "AWSGlueServiceRoleDefault" agregándole los siguientes permisos: AmazonS3FullAccess, AWSGlueServiceRole.
+- Se creó el role "AWSRedshiftServiceRoleDefault" agregándole los siguientes permisos: AmazonS3FullAccess, AWSGlueConsoleFullAccess.
+4) Glue:
+- En la sección Databases se crearon: raw, stage y analytics.
+- Se crearon 3 crawlers ejecutando los estos [scripts](https://github.com/flanfranco/itba-fl-tp-ml-engineering/tree/main/aws-deploy/scripts/glue/crawlers) en CloudShell. 
 
 
 Redshift

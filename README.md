@@ -122,7 +122,16 @@ En la configuración del dataset de QuickSight puede verse la [query](https://gi
 
 ![Image of quicksight datasource](https://raw.githubusercontent.com/flanfranco/itba-fl-tp-ml-engineering/main/docs/img/09_quicksight_datasource.png) 
 
+
 ### Detalle del despliegue
+
+Antes es importante remarcar que la etapa de desarrollo de la solución se realizó en Ubuntu, configurando AWS CLI con un usuario con permisos y levantando un ambiente de airflow de desarrollo/test con docker-compose. Luego, una vez validada la solucion, se levantó el ambiente de MWAA y se desplegó el dag desarrollado en el mismo. 
+
+A continuación se detallan los pasos necesarios para replicar la solución implementada:
+
+
+
+
 
 Redshift
 

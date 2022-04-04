@@ -84,12 +84,17 @@ En referencia a los **scripts de pyspark** responsables de transformar los datos
 * Script [stage --> analytics](https://github.com/flanfranco/itba-fl-tp-ml-engineering/blob/main/aws-deploy/scripts/glue/stage_to_analytics_agg_flights_delay_by_date_airport.py):
 - recibe como parámetro el año de procesamiento (ptn_year).
 - en base al mismo realiza un push_down_predicate filtrando solo lo relacionado a ese año en la data input (stage).
+- tiene configurado "spark.conf.set("spark.sql.sources.partitionOverwriteMode","dynamic")" para poder "pisar" particiones preexistentes.  
 - aplica lógica de negocio para filtrar vuelos que no han sido cancelados y que tengan valor en los campos fl_date, origin y dep_delay.
 - aplica una agregación por fl_date y origin.
 - suma 2 campos (año y mes) y renombra columnas.
 - almacena los datos en parquet particionados por flight_year, flight_month, y flight_date.
 
-
+En referencia a la tarea [process_anomaly_detection](https://github.com/flanfranco/itba-fl-tp-ml-engineering/blob/bd350a8a67e0ab906a69b084ae0c4d8a9320bed1/aws-deploy/mwaa/dags/aws_etl_dag.py#L9) perteneciente al [dag aws_etl_dag](https://github.com/flanfranco/itba-fl-tp-ml-engineering/blob/main/aws-deploy/mwaa/dags/aws_etl_dag.py) la misma consta de 4 partes importantes:
+* La primera parte se encarga de leer los datos correspondientes a la fuente previamente agregada para el año ejecutado en la recarga. Para esto se utiliza el método s3.read_parquet de la librería awswrangler.
+* La segunda parte es la encargada de aplicar el algoritmo de detección de anomalias (sklearn --> Isolation Forest) y generar un dataframe con el cálculo del modelo para cada aeropuerto.
+* La tercera parte es la encargada de persistir ese dataframe en el DW utilizando nuevamente la librería awswrangler pero ahora con el método wr.redshift.copy que lo que hace es generar en el bucket temporal un archivo parquet y persistirlo con el comando COPY en el DW. Esta inserción el DW se trabaja con el modo "upsert" para no generar duplicados ante un reprocesamiento.
+* La última parte es la encargada de generar los reportes por aeropuerto y almacenarlos en el bucket de reportes.
 
 ### Reportes de ejemplo
 

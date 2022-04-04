@@ -1,0 +1,5 @@
+aws glue create-crawler \
+--name raw-us-flights-airline-delay-cancellation-crawler \
+--role arn\:aws\:iam::232483837258\:role/AWSGlueServiceRoleDefault \
+--database-name raw \
+--targets "{\"S3Targets\":[{\"Path\":\"s3://itbafl-raw-useast1-232483837258-prd/external/kaggle/csv/us-flights-airline-delay-cancellation\"}]}"

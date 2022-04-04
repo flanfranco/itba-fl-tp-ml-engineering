@@ -1,0 +1,5 @@
+aws glue create-crawler \
+--name analytics-agg-flights-delay-by-date-airport-crawler \
+--role arn\:aws\:iam::232483837258\:role/AWSGlueServiceRoleDefault \
+--database-name analytics \
+--targets "{\"S3Targets\":[{\"Path\":\"s3://itbafl-analytics-useast1-232483837258-prd/agg-flights-delay-by-date-airport\"}]}"

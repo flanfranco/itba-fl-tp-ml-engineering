@@ -1,0 +1,5 @@
+aws glue create-crawler \
+--name stage-us-flights-airline-delay-cancellation-crawler \
+--role arn\:aws\:iam::232483837258\:role/AWSGlueServiceRoleDefault \
+--database-name stage \
+--targets "{\"S3Targets\":[{\"Path\":\"s3://itbafl-stage-useast1-232483837258-prd/external/kaggle/us-flights-airline-delay-cancellation\"}]}"

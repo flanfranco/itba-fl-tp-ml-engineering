@@ -26,6 +26,7 @@ Se propone resolver los [requerimientos](https://github.com/flanfranco/itba-fl-t
 * Glue para procesar y transformar los datos.
 * Glue Data Catalog como catálogo de datos de la solución.
 * Redshift Spectrum como DW con la posibilidad de consumir tablas "externas" del datalake (lake house).
+* QuickSight para exponer de manera visual los datos procesados.
 * Athena para poder analizar tablas del datalake.
 * IAM para gestionar los roles y permisos relacionados a los servicios enunciados.
 * VPC y servicios relacionados para poder desplegar todo el newtorking de la solución.
